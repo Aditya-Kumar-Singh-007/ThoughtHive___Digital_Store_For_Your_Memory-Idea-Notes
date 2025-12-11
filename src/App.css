@@ -12,21 +12,40 @@
   --fw-bold: 700;
   --fw-extrabold: 800;
   
-  /* Color Variables */
+  /* Dark Theme Colors (Default) */
+  --bg-primary: #000000;
+  --bg-secondary: rgba(255, 255, 255, 0.05);
+  --bg-card: rgba(255, 255, 255, 0.06);
+  --bg-nav: rgba(255, 255, 255, 0.9);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --snow-color: rgba(255, 255, 255, 0.6);
+  
   --color-primary: #6366f1;
   --color-secondary: #f59e0b;
   --color-accent: #ec4899;
   --color-success: #10b981;
-  --color-text: #1f2937;
-  --color-text-light: #6b7280;
+}
+
+/* Light Theme */
+.light-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: rgba(255, 255, 255, 0.95);
+  --bg-card: rgba(255, 255, 255, 0.98);
+  --bg-nav: rgba(255, 255, 255, 0.95);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-color: rgba(15, 23, 42, 0.15);
+  --snow-color: rgba(59, 130, 246, 0.4);
 }
 
 /* Global styling */
 html, body {
   margin: 0;
   padding: 0;
-  background: #000000;
-  color: #ffffff;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: var(--font-body);
   font-weight: var(--fw-regular);
   min-height: 100vh;
@@ -53,17 +72,13 @@ html, body {
     font-size: 3.5rem !important;
     font-weight: var(--fw-extrabold) !important;
     margin-bottom: 1.5rem !important;
-    color: #ffffff !important;
-    text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3) !important;
+    color: var(--text-primary) !important;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 1.2rem !important;
     letter-spacing: -0.01em !important;
-    background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
   }
   
   .home-title-icon {
@@ -77,10 +92,10 @@ html, body {
     font-size: 1.4rem !important;
     font-weight: var(--fw-medium) !important;
     font-style: italic !important;
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: var(--text-secondary) !important;
     margin-bottom: 3rem !important;
     letter-spacing: 0.5px !important;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
     line-height: 1.5 !important;
   }
   
@@ -95,7 +110,7 @@ html, body {
     padding: 1.2rem 2.5rem !important;
     font-size: 1.2rem !important;
     font-weight: var(--fw-bold) !important;
-    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border: 2px solid var(--border-color) !important;
     border-radius: 20px !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
@@ -105,6 +120,12 @@ html, body {
     letter-spacing: 0.8px !important;
     text-transform: uppercase !important;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  }
+  
+  .light-theme .btn {
+    border: 2px solid rgba(59, 130, 246, 0.3) !important;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15) !important;
+    text-shadow: 0 2px 4px rgba(59, 130, 246, 0.2) !important;
   }
   
   .write-btn {
@@ -135,14 +156,18 @@ html, body {
   .write-note-container {
     max-width: 600px;
     margin: 1rem auto;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bg-card);
     backdrop-filter: blur(25px);
     border-radius: 20px;
     box-shadow: 0 16px 64px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
     padding: 2rem 2.5rem;
     font-family: 'Poppins', sans-serif;
     min-height: fit-content;
+  }
+  
+  .light-theme .write-note-container {
+    box-shadow: 0 16px 64px rgba(59, 130, 246, 0.15);
   }
   
   .write-note-title {
@@ -151,13 +176,20 @@ html, body {
     font-weight: var(--fw-extrabold) !important;
     text-align: center !important;
     margin-bottom: 0.5rem !important;
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
     text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3) !important;
     letter-spacing: -0.02em !important;
     background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
+  }
+  
+  .light-theme .write-note-title {
+    background: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: 0 4px 20px rgba(59, 130, 246, 0.2) !important;
   }
   
   .write-note-tagline {
@@ -167,7 +199,7 @@ html, body {
     font-style: italic !important;
     text-align: center !important;
     margin-bottom: 2rem !important;
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: var(--text-secondary) !important;
     letter-spacing: 0.3px !important;
   }
   
@@ -181,11 +213,15 @@ html, body {
     font-family: var(--font-title) !important;
     font-weight: var(--fw-bold) !important;
     font-size: 1rem !important;
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
     margin-bottom: 0.5rem !important;
     text-transform: capitalize !important;
     letter-spacing: 0.3px !important;
     text-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+  }
+  
+  .light-theme .write-note-form label {
+    text-shadow: 0 2px 8px rgba(59, 130, 246, 0.1) !important;
   }
   
   .write-note-form input,
@@ -193,16 +229,21 @@ html, body {
     font-family: var(--font-body) !important;
     font-size: 1rem !important;
     font-weight: var(--fw-regular) !important;
-    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid var(--border-color) !important;
     border-radius: 12px !important;
     padding: 0.8rem 1rem !important;
     outline: none !important;
     transition: all 0.3s ease !important;
-    background: rgba(255, 255, 255, 0.12) !important;
+    background: var(--bg-secondary) !important;
     backdrop-filter: blur(15px) !important;
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
     line-height: 1.5 !important;
     box-shadow: inset 0 2px 8px rgba(0,0,0,0.15), 0 4px 20px rgba(0,0,0,0.1) !important;
+  }
+  
+  .light-theme .write-note-form input,
+  .light-theme .write-note-form textarea {
+    box-shadow: inset 0 2px 8px rgba(59, 130, 246, 0.08), 0 4px 20px rgba(59, 130, 246, 0.05) !important;
   }
   
   .write-note-form input:focus,
@@ -215,7 +256,7 @@ html, body {
   
   .write-note-form input::placeholder,
   .write-note-form textarea::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
   }
   
   .submit-btn {
@@ -253,20 +294,25 @@ html, body {
 
 /* View Notes Page Container - Frosty Theme */
 .notes-view-container {
-  background: linear-gradient(135deg, 
-    rgba(200, 230, 255, 0.1) 0%, 
-    rgba(150, 200, 255, 0.08) 50%, 
-    rgba(180, 220, 255, 0.12) 100%);
+  background: var(--bg-card);
   backdrop-filter: blur(25px);
   border-radius: 24px;
   margin: 2rem;
   padding: 2rem;
-  border: 2px solid rgba(200, 230, 255, 0.2);
+  border: 2px solid var(--border-color);
   box-shadow: 
     0 20px 80px rgba(150, 200, 255, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     0 0 60px rgba(200, 230, 255, 0.1);
   position: relative;
+}
+
+.light-theme .notes-view-container {
+  background: rgba(255, 255, 255, 0.98);
+  border: 2px solid rgba(15, 23, 42, 0.1);
+  box-shadow: 
+    0 20px 80px rgba(15, 23, 42, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .notes-view-container::before {
@@ -288,14 +334,20 @@ html, body {
 .note-card {
   border-radius: 16px;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-secondary);
   backdrop-filter: blur(20px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--border-color);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   padding: 1.5rem;
   margin: 1rem 0;
   cursor: pointer;
   position: relative;
+}
+
+.light-theme .note-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(15, 23, 42, 0.1);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.15);
 }
 
 .note-card:hover {
@@ -323,7 +375,7 @@ html, body {
   font-size: 1.4rem !important;
   font-weight: var(--fw-bold) !important;
   margin: 0 !important;
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
   letter-spacing: 0.3px !important;
   text-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
   line-height: 1.3 !important;
@@ -331,12 +383,16 @@ html, body {
   padding-right: 1rem !important;
 }
 
+.light-theme .note-title {
+  text-shadow: 0 2px 8px rgba(59, 130, 246, 0.1) !important;
+}
+
 .note-desc {
   font-family: var(--font-body) !important;
   font-size: 1rem !important;
   font-weight: var(--fw-regular) !important;
   margin: 0 0 1.2rem 0 !important;
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: var(--text-secondary) !important;
   line-height: 1.6 !important;
   letter-spacing: 0.2px !important;
 }
@@ -346,12 +402,12 @@ html, body {
   justify-content: flex-end;
   margin-top: auto;
   padding-top: 0.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border-color);
 }
 
 .note-date {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
   font-style: italic;
 }
 
@@ -372,8 +428,8 @@ html, body {
 }
 
 .icon-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   width: 32px;
   height: 32px;
@@ -381,7 +437,7 @@ html, body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: 0.9rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
@@ -433,7 +489,7 @@ html, body {
   font-family: var(--font-heading) !important;
   font-size: 3rem !important;
   font-weight: var(--fw-extrabold) !important;
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
   margin: 0 0 1rem 0 !important;
   text-align: center !important;
   text-shadow: 0 4px 20px rgba(255, 255, 255, 0.2) !important;
@@ -444,11 +500,18 @@ html, body {
   background-clip: text !important;
 }
 
+.light-theme .notes-title {
+  background: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 4px 20px rgba(59, 130, 246, 0.2) !important;
+}
+
 .notes-sub {
   font-family: var(--font-body) !important;
   font-size: 1.2rem !important;
   font-weight: var(--fw-medium) !important;
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: var(--text-secondary) !important;
   margin: 0 0 2rem 0 !important;
   text-align: center !important;
   line-height: 1.6 !important;
@@ -496,12 +559,12 @@ html, body {
 }
 
 .notes-empty h3 {
-  color: #ffffff;
+  color: var(--text-primary);
   margin: 1rem 0 0.5rem 0;
 }
 
 .notes-empty p {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
   margin-bottom: 1.5rem;
 }
 
@@ -749,7 +812,13 @@ html, body {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  pointer-events: auto;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .ballpit-background {
+    pointer-events: auto;
+  }
 }
 
 /* Ensure content is above background */
@@ -763,9 +832,35 @@ body {
 .navbar,
 .container,
 .home-container,
-.write-note-container {
+.write-note-container,
+.login-card,
+.signup-card,
+.notes-view-container,
+.about-container {
   position: relative;
-  z-index: 1;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Ensure all interactive elements work on mobile */
+@media (max-width: 768px) {
+  button,
+  .btn,
+  .auth-btn,
+  .submit-btn,
+  .hamburger,
+  .create-btn-corner,
+  .nav-links a,
+  input,
+  textarea,
+  .note-card,
+  .icon-btn {
+    position: relative;
+    z-index: 20;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: rgba(37, 99, 235, 0.2);
+    touch-action: manipulation;
+  }
 }
 
 
@@ -783,7 +878,7 @@ body {
 .snowflake {
   position: absolute;
   top: -10px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--snow-color);
   user-select: none;
   pointer-events: none;
   animation: fall linear infinite;
@@ -1277,7 +1372,7 @@ body {
   font-family: var(--font-navbar) !important;
   font-size: 1.4rem !important;
   font-weight: var(--fw-extrabold) !important;
-  color: #0f172a !important;
+  color: var(--text-primary) !important;
   text-decoration: none !important;
   padding-left: 4px !important;
   letter-spacing: 0.8px !important;
@@ -1299,7 +1394,7 @@ body {
   text-decoration: none !important;
   font-weight: var(--fw-semibold) !important;
   font-size: 1rem !important;
-  color: #374151 !important;
+  color: var(--text-secondary) !important;
   transition: all 180ms ease !important;
   padding: 10px 16px !important;
   border-radius: 999px !important;
@@ -1738,3 +1833,332 @@ body {
   .signup-title { font-size: 1.25rem; }
 }
 
+/* Ballpit Canvas Background */
+.ballpit-canvas {
+  background: linear-gradient(135deg, #000000, #030303);
+}
+
+.light-theme .ballpit-canvas {
+  background: linear-gradient(135deg, #f7f4f4, #fefcf0);
+}
+
+/* Theme Toggle Button */
+.create-btn-corner {
+  position: fixed;
+  top: 0;
+  right: 50px;
+  z-index: 200;
+  background: none;
+  border: none;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.create-btn-corner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.create-btn-corner:hover {
+  transform: scale(1.1);
+  box-shadow: none;
+}
+
+.create-btn-corner:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Light Theme Additions for Missing Components */
+
+/* About Page Light Theme */
+.light-theme .about-container {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.08) 0%, 
+    rgba(99, 102, 241, 0.06) 50%, 
+    rgba(139, 92, 246, 0.08) 100%);
+  border: 2px solid var(--border-color);
+  box-shadow: 
+    0 20px 80px rgba(59, 130, 246, 0.1),
+    inset 0 1px 0 rgba(59, 130, 246, 0.1);
+}
+
+.light-theme .about-title {
+  background: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 4px 20px rgba(59, 130, 246, 0.2) !important;
+}
+
+.light-theme .about-description {
+  color: var(--text-secondary) !important;
+}
+
+.light-theme .feature-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.light-theme .feature-card h3 {
+  color: var(--text-primary) !important;
+}
+
+.light-theme .feature-card p {
+  color: var(--text-secondary) !important;
+}
+
+.light-theme .about-tech h3 {
+  color: var(--text-primary) !important;
+}
+
+.light-theme .about-developer h3 {
+  color: var(--text-primary) !important;
+}
+
+.light-theme .developer-info {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.light-theme .developer-name {
+  color: var(--text-primary) !important;
+}
+
+.light-theme .developer-description {
+  color: var(--text-secondary) !important;
+}
+
+.light-theme .contact-link {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.light-theme .about-footer {
+  border-top: 1px solid var(--border-color);
+}
+
+.light-theme .about-footer p {
+  color: var(--text-secondary);
+}
+
+/* Modal Light Theme */
+.light-theme .note-modal {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  box-shadow: 0 20px 80px rgba(59, 130, 246, 0.2);
+}
+
+.light-theme .note-modal-header {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.light-theme .note-modal-title {
+  color: var(--text-primary) !important;
+  text-shadow: 0 4px 15px rgba(59, 130, 246, 0.2) !important;
+}
+
+.light-theme .note-modal-close {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.light-theme .note-modal-description {
+  color: var(--text-secondary) !important;
+}
+
+.light-theme .note-modal-date {
+  color: var(--text-secondary);
+}
+
+/* Edit Modal Light Theme */
+.light-theme .edit-modal {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  box-shadow: 0 20px 80px rgba(59, 130, 246, 0.2);
+}
+
+.light-theme .edit-modal-header {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.light-theme .edit-modal-title {
+  color: var(--text-primary) !important;
+  text-shadow: 0 4px 15px rgba(59, 130, 246, 0.2) !important;
+}
+
+.light-theme .edit-modal-tagline {
+  color: var(--text-secondary) !important;
+}
+
+.light-theme .edit-modal-close {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.light-theme .edit-form-label {
+  color: var(--text-primary) !important;
+}
+
+.light-theme .edit-form-input,
+.light-theme .edit-form-textarea {
+  border: 2px solid var(--border-color) !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.light-theme .edit-form-input::placeholder,
+.light-theme .edit-form-textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Submit Modal Light Theme */
+.light-theme .submit-modal {
+  background: var(--bg-card);
+  border: 2px solid rgba(74, 222, 128, 0.3);
+  box-shadow: 0 20px 80px rgba(59, 130, 246, 0.2);
+}
+
+.light-theme .submit-modal-header {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.light-theme .submit-modal-message {
+  color: var(--text-secondary) !important;
+}
+
+/* Loader Light Theme */
+.light-theme .loader-spinner {
+  border: 3px solid var(--border-color);
+  border-top: 3px solid rgba(59, 130, 246, 0.8);
+}
+
+.light-theme .loader-text {
+  color: var(--text-secondary);
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+  .modern-nav {
+    padding: 0 16px;
+  }
+  
+  .nav-inner {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .nav-links {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .nav-auth {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .auth-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .brand {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobile Theme Toggle */
+@media (max-width: 520px) {
+  .create-btn-corner {
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* General Mobile Improvements */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  /* Make touch targets larger */
+  button, .auth-btn, .nav-links a {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+}
+/* Mobile Touch Optimization */
+@media (max-width: 768px) {
+  /* Ballpit canvas touch handling */
+  .ballpit-canvas {
+    touch-action: pan-y !important;
+    pointer-events: auto !important;
+  }
+  
+  /* Ensure all UI elements are above ballpit and clickable */
+  .modern-nav,
+  .nav-menu,
+  .hamburger,
+  .create-btn-corner,
+  .login-card,
+  .signup-card,
+  .home-container,
+  .write-note-container,
+  .notes-view-container,
+  .about-container {
+    position: relative;
+    z-index: 100;
+    pointer-events: auto;
+  }
+  
+  /* Make all interactive elements touch-friendly */
+  button,
+  .btn,
+  .auth-btn,
+  .submit-btn,
+  .hamburger,
+  .create-btn-corner,
+  .nav-links a,
+  input,
+  textarea,
+  .note-card,
+  .icon-btn,
+  .show-pass-btn {
+    -webkit-tap-highlight-color: rgba(37, 99, 235, 0.2);
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+    z-index: 101;
+  }
+  
+  /* Prevent text selection on interactive elements */
+  .nav-links a,
+  .auth-btn,
+  .btn,
+  button {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}

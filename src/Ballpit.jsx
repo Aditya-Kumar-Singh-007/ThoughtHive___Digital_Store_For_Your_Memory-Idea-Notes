@@ -326,7 +326,10 @@ function L() {
 
 function TouchStart(e) {
   if (e.touches.length > 0) {
-    e.preventDefault();
+    const target = e.target;
+    if (target.tagName === 'CANVAS' && target.classList.contains('ballpit-canvas')) {
+      e.preventDefault();
+    }
     A.x = e.touches[0].clientX;
     A.y = e.touches[0].clientY;
 
@@ -347,7 +350,10 @@ function TouchStart(e) {
 
 function TouchMove(e) {
   if (e.touches.length > 0) {
-    e.preventDefault();
+    const target = e.target;
+    if (target.tagName === 'CANVAS' && target.classList.contains('ballpit-canvas')) {
+      e.preventDefault();
+    }
     A.x = e.touches[0].clientX;
     A.y = e.touches[0].clientY;
 
@@ -669,7 +675,7 @@ function createBallpit(e, t = {}) {
   const r = new a();
   let c = false;
 
-  e.style.touchAction = 'none';
+  e.style.touchAction = 'pan-y';
   e.style.userSelect = 'none';
   e.style.webkitUserSelect = 'none';
 
@@ -719,7 +725,7 @@ function createBallpit(e, t = {}) {
   };
 }
 
-const Ballpit = ({ className = '', followCursor = false, ...props }) => {
+const Ballpit = ({ className = '', followCursor = false, colors, ...props }) => {
   const canvasRef = useRef(null);
   const spheresInstanceRef = useRef(null);
 
@@ -727,17 +733,22 @@ const Ballpit = ({ className = '', followCursor = false, ...props }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    spheresInstanceRef.current = createBallpit(canvas, { followCursor, ...props });
+    spheresInstanceRef.current = createBallpit(canvas, { followCursor, colors, ...props });
 
     return () => {
       if (spheresInstanceRef.current) {
         spheresInstanceRef.current.dispose();
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <canvas className={className} ref={canvasRef} style={{ width: '100%', height: '100%' }} />;
+  useEffect(() => {
+    if (spheresInstanceRef.current && colors) {
+      spheresInstanceRef.current.spheres.setColors(colors);
+    }
+  }, [colors]);
+
+  return <canvas className={`ballpit-canvas ${className}`} ref={canvasRef} style={{ width: '100%', height: '100%' }} />;
 };
 
 export default Ballpit;

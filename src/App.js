@@ -9,8 +9,48 @@ import WriteNote from "./components/WriteNote";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Ballpit from "./Ballpit";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [isLightTheme, setIsLightTheme] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldUseLightMode = savedTheme === 'light' || (!savedTheme && !systemPrefersDark);
+    setIsLightTheme(shouldUseLightMode);
+
+    // Listen for theme changes
+    const handleStorageChange = () => {
+      const newTheme = localStorage.getItem('theme');
+      setIsLightTheme(newTheme === 'light');
+    };
+
+    // Listen for class changes on document element
+    const observer = new MutationObserver(() => {
+      const hasLightTheme = document.documentElement.classList.contains('light-theme');
+      setIsLightTheme(hasLightTheme);
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      observer.disconnect();
+    };
+  }, []);
+
+  // Dark theme colors (yellowish cursor + neon palette)
+  const darkColors = [0xffd700, 0xff3366, 0x00ff88, 0x3366ff, 0xff6600, 0xcc00ff];
+  
+  // Light theme colors (golden cursor + deep jewel tones)
+  const lightColors = [0xb8860b, 0x990033, 0x006644, 0x003399, 0xcc4400, 0x660099];
+
   return (
     <>
       <div style={{
@@ -24,7 +64,7 @@ function App() {
       }}>
         <Ballpit
           count={60}
-          colors={[0xff6b6b, 0x4ecdc4, 0x45b7d1, 0x96ceb4, 0xfeca57, 0xff9ff3]}
+          colors={isLightTheme ? lightColors : darkColors}
           gravity={0.015}
           friction={0.998}
           wallBounce={0.8}

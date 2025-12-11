@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-// make sure this path matches where you save the CSS
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLightMode, setIsLightMode] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -13,8 +13,31 @@ const Navbar = () => {
 
   const isActive = (path) => (location.pathname === path ? "active" : "");
 
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldUseLightMode = savedTheme === 'light' || (!savedTheme && !systemPrefersDark);
+    
+    setIsLightMode(shouldUseLightMode);
+    document.documentElement.classList.toggle('light-theme', shouldUseLightMode);
+  }, []);
+
+  const toggleTheme = () => {
+    const newLightMode = !isLightMode;
+    setIsLightMode(newLightMode);
+    document.documentElement.classList.toggle('light-theme', newLightMode);
+    localStorage.setItem('theme', newLightMode ? 'light' : 'dark');
+  };
+
   return (
-    <nav className="modern-nav" role="navigation" aria-label="Main navigation">
+    <>
+      <button onClick={toggleTheme} className="create-btn-corner">
+        <img 
+          src={isLightMode ? '/light.png' : '/dark.png'} 
+          alt={isLightMode ? 'Light mode active' : 'Dark mode active'}
+        />
+      </button>
+      <nav className="modern-nav" role="navigation" aria-label="Main navigation">
       <div className="nav-inner">
         <Link className="brand" to="/">
           ThoughtHive
@@ -51,6 +74,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    </>
   );
 };
 
