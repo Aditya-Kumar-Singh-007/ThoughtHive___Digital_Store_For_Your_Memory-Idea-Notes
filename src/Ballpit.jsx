@@ -740,7 +740,7 @@ const Ballpit = ({ className = '', followCursor = false, colors, ...props }) => 
         spheresInstanceRef.current.dispose();
       }
     };
-  }, [followCursor, colors, props]);
+  }, []);
 
   useEffect(() => {
     if (spheresInstanceRef.current && colors) {
