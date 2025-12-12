@@ -22,7 +22,6 @@ const EditNoteBox = ({note, onSave, onCancel}) => {
   };
 
   const handleSave = () => {
-    console.log("Updating",editedNote)
     onSave(editedNote.id, editedNote.title, editedNote.description, editedNote.tag);
     
   };

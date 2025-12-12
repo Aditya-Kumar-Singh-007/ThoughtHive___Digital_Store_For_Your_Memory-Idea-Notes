@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Link,useNavigate } from "react-router-dom";
 
 
@@ -9,6 +9,14 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    // Clear form fields with delay to override browser auto-fill
+    const timer = setTimeout(() => {
+      setInfo({ name: "", email: "", password: "", confirmPassword: "" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const onchange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -21,6 +29,11 @@ const SignUp = () => {
     }
     if (!info.email.trim()) {
       setError("Please enter your email.");
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(info.email)) {
+      setError("Please enter a valid email address.");
       return false;
     }
     if (info.password.length < 5) {
@@ -43,7 +56,6 @@ const SignUp = () => {
     setError("");
     
     try {
-      console.log("Creating user account...");
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"}/api/auth/createuser`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -51,18 +63,14 @@ const SignUp = () => {
       });
 
       const json = await response.json();
-      console.log("Signup response:", json);
 
       if (json.success) {
-        console.log("Account created successfully");
         localStorage.setItem("token", json.authToken);
         navigate("/getallnotes");
       } else {
-        console.log("Signup failed:", json.error || json.message);
         setError(json.error || json.message || "Account could not be created. Maybe this email already exists.");
       }
     } catch (err) {
-      console.error("Network error:", err);
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
@@ -94,7 +102,7 @@ const SignUp = () => {
                 onChange={onchange}
                 className="form-input"
                 placeholder="Your name"
-                autoComplete="name"
+                autoComplete="off"
                 aria-required="true"
                 disabled={loading}
               />
@@ -109,7 +117,7 @@ const SignUp = () => {
                 onChange={onchange}
                 className="form-input"
                 placeholder="you@example.com"
-                autoComplete="email"
+                autoComplete="off"
                 aria-required="true"
                 disabled={loading}
               />
@@ -125,7 +133,7 @@ const SignUp = () => {
                   onChange={onchange}
                   className="form-input"
                   placeholder="At least 5 characters"
-                  autoComplete="new-password"
+                  autoComplete="off"
                   aria-required="true"
                   disabled={loading}
                 />
@@ -151,7 +159,7 @@ const SignUp = () => {
                 onChange={onchange}
                 className="form-input"
                 placeholder="Confirm your password"
-                autoComplete="new-password"
+                autoComplete="off"
                 aria-required="true"
                 disabled={loading}
               />

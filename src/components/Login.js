@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -7,6 +7,14 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    // Clear form fields with delay to override browser auto-fill
+    const timer = setTimeout(() => {
+      setCredentials({ email: "", password: "" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const validate = () => {
     if (!credentials.email.trim()) {
@@ -87,7 +95,7 @@ const Login = () => {
                 onChange={onchange}
                 className="form-input"
                 placeholder="you@example.com"
-                autoComplete="email"
+                autoComplete="off"
                 aria-required="true"
                 disabled={loading}
               />
@@ -103,7 +111,7 @@ const Login = () => {
                   onChange={onchange}
                   className="form-input"
                   placeholder="Enter Your Password"
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   aria-required="true"
                   disabled={loading}
                 />

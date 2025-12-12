@@ -21,7 +21,6 @@ const WriteNote = () => {
   const handleOnClick=(e)=>{
     e.preventDefault();
     addnote(note.title,note.description,note.tag);
-    console.log(note);
     setShow(true); 
     setModalTitle(note.title);
     

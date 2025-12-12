@@ -49,7 +49,7 @@ const NoteItem = ({ note, onEdit, onView }) => {
             onClick={handleEditClick}
             aria-label="Edit note"
           >
-            ✎
+            <img src="/edit.png" alt="Edit" />
           </button>
           <button
             className="icon-btn icon-delete"
@@ -57,7 +57,7 @@ const NoteItem = ({ note, onEdit, onView }) => {
             onClick={handleDeleteClick}
             aria-label="Delete note"
           >
-            🗑
+            <img src="/delete.png" alt="Delete" />
           </button>
         </div>
       </div>
