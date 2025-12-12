@@ -918,7 +918,7 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 1500;
-  padding: 2rem;
+  padding: 0rem;
 }
 
 .note-modal {
