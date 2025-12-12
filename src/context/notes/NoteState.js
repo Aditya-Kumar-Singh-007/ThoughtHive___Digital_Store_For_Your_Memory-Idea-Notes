@@ -45,14 +45,13 @@ const NoteState = (props) => {
 
   //delete node
   const deleteNote = async (id) => {
-    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+    await fetch(`${host}/api/notes/deletenote/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
         "auth-token": localStorage.getItem("token"),
       },
     });
-    const json = await response.json();
 
     const newNotes = notes.filter((notes) => {
       return notes._id !== id;
@@ -62,7 +61,7 @@ const NoteState = (props) => {
 
   // edit note
   const editNote = async (id, title, description, tag) => {
-    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+    await fetch(`${host}/api/notes/updatenote/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -70,7 +69,6 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    const json = await response.json();
 
     // lOgic for edit
     setNote(
