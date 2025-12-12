@@ -5,7 +5,7 @@ import {Link,useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [info, setInfo] = useState({ name: "", email: "", password: "" });
+  const [info, setInfo] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +27,10 @@ const SignUp = () => {
       setError("Password must be at least 5 characters.");
       return false;
     }
+    if (info.password !== info.confirmPassword) {
+      setError("Passwords do not match.");
+      return false;
+    }
     setError("");
     return true;
   };
@@ -37,7 +41,9 @@ const SignUp = () => {
 
     setLoading(true);
     setError("");
+    
     try {
+      console.log("Creating user account...");
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"}/api/auth/createuser`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -45,16 +51,18 @@ const SignUp = () => {
       });
 
       const json = await response.json();
+      console.log("Signup response:", json);
 
       if (json.success) {
+        console.log("Account created successfully");
         localStorage.setItem("token", json.authToken);
         navigate("/getallnotes");
       } else {
-        // show backend message if available
+        console.log("Signup failed:", json.error || json.message);
         setError(json.error || json.message || "Account could not be created. Maybe this email already exists.");
       }
     } catch (err) {
-      console.error(err);
+      console.error("Network error:", err);
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
@@ -64,7 +72,7 @@ const SignUp = () => {
   return (
     <div className="signup-page">
       <main className="signup-outer" aria-live="polite">
-        <section className="signup-card" role="region" aria-label="Sign up form">
+        <section className="signup-card" aria-label="Sign up form">
           <header className="signup-header">
             <h1 className="signup-title">Create account</h1>
             <p className="signup-sub">Start your ThoughtHive journey — quick and free.</p>
@@ -132,6 +140,21 @@ const SignUp = () => {
                   {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
+            </label>
+
+            <label className="form-label">
+              <span className="label-text">Confirm Password</span>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="confirmPassword"
+                value={info.confirmPassword}
+                onChange={onchange}
+                className="form-input"
+                placeholder="Confirm your password"
+                autoComplete="new-password"
+                aria-required="true"
+                disabled={loading}
+              />
             </label>
 
             <div className="form-actions">

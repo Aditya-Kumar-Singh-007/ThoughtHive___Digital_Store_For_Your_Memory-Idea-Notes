@@ -49,7 +49,6 @@ const Login = () => {
         setError(json.error || json.message || "Invalid credentials. Please try again.");
       }
     } catch (err) {
-      console.error(err);
       setError("Network error. Please check your connection.");
     } finally {
       setLoading(false);
@@ -66,7 +65,7 @@ const Login = () => {
         className="login-outer"
         aria-live="polite"
       >
-        <section className="login-card" role="region" aria-label="Login form">
+        <section className="login-card" aria-label="Login form">
           <header className="login-header">
             <h1 className="login-title">Welcome back</h1>
             <p className="login-sub">Sign in to your ThoughtHive account</p>

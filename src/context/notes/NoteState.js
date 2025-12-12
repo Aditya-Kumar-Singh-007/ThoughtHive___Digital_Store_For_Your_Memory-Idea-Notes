@@ -12,7 +12,6 @@ const NoteState = (props) => {
   const fetchNotes = async () => {
     setLoading(true);
     try {
-      console.log("fetching all notes");
       const response = await fetch(`${host}/api/notes/getallnotes`, {
         method: "GET",
         headers: {
@@ -23,7 +22,7 @@ const NoteState = (props) => {
       const json = await response.json();
       setNote(json);
     } catch (error) {
-      console.error("Error fetching notes:", error);
+      // Handle error silently
     } finally {
       setLoading(false);
     }
@@ -31,7 +30,6 @@ const NoteState = (props) => {
 
   //add note
   const addnote = async (title, description, tag) => {
-    console.log("adding note");
     const response = await fetch(`${host}/api/notes/addnote`, {
       method: "POST",
       headers: {
@@ -41,14 +39,12 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
     });
     const json = await response.json();
-    console.log(json);
 
     setNote(notes.concat(json.note));
   };
 
   //delete node
   const deleteNote = async (id) => {
-    console.log("deleting note with id :" + id);
     const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
       method: "DELETE",
       headers: {
@@ -57,7 +53,6 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-    console.log(json);
 
     const newNotes = notes.filter((notes) => {
       return notes._id !== id;
@@ -76,7 +71,6 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
     });
     const json = await response.json();
-    console.log(json);
 
     // lOgic for edit
     setNote(
